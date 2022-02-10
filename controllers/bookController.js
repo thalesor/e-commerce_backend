@@ -5,6 +5,7 @@ async function postBook(req, res)
     const data = res.locals.postData;
     try
     {
+        data.views = 0;
         const result = await dbService.insert("books",
         data
         );

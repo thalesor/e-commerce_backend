@@ -17,3 +17,5 @@ const validation = (validateFn) => {
         ${validation.errors}`);
     };
   };
+
+  export { validation };
