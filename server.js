@@ -1,4 +1,3 @@
-
 import express, { json } from 'express';
 import cors from 'cors';
 import { postBook, getBook, getBooks } from './controllers/bookController.js';
@@ -22,6 +21,8 @@ app.get('/categories', getCategories);
 app.get('/books', getBooks);
 app.get('/book', getBook);
 registrarCategorias();
+
+
 
 app.listen("5000", (port) => {
 	console.log(`Server running :^)`);
