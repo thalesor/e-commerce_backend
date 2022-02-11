@@ -26,6 +26,53 @@ async function postBook(req, res)
     } 
 }
 
+async function getBooks(req, res)
+{
+    try
+    {
+        const books = await dbService.find("books",
+        {}
+        );
+
+        if(books.length)
+        return res.status(200).json(books);
+
+        const response = `
+        Não há livros cadastrados!`;
+        return res.status(500).send(response);
+    }
+    catch(err)
+    {
+        const response = `
+        Erro no servidor ao tentar retornar os livros cadastrados!`;
+        return res.status(500).send(response);
+    } 
+}
+
+async function getBook(req, res)
+{
+    try
+    {
+        const title = req.headers.title;
+        const book = await dbService.find("books", { title: title }
+        );
+        if(book.length)
+        return res.status(200).json(book);
+
+        const response = `
+        Não há livros cadastrados!`;
+        return res.status(500).send(response);
+    }
+    catch(err)
+    {
+        const response = `
+        Erro no servidor ao tentar retornar os livros cadastrados!`;
+        return res.status(500).send(response);
+    } 
+}
+
 export { 
-    postBook
+    getBooks,
+    postBook,
+    getBook
 }
