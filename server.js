@@ -1,6 +1,6 @@
 import express, { json } from 'express';
 import cors from 'cors';
-import { postBook, getBook, getBooks } from './controllers/bookController.js';
+import { postBook, getBook, getBooks, registrarLivros } from './controllers/bookController.js';
 import { getCategories, registrarCategorias} from './controllers/categoryController.js';
 import { validateBook } from './services/joi-service.js';
 import { validation } from './validationMiddleware.js';
@@ -21,7 +21,7 @@ app.get('/categories', getCategories);
 app.get('/books', getBooks);
 app.get('/book', getBook);
 registrarCategorias();
-
+registrarLivros();
 
 
 app.listen("5000", (port) => {
