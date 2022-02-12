@@ -8,12 +8,12 @@ export async function valideteToken(req, res, next) {
 		return res.sendStatus(401);
 	}
 
-	const session = await dbService.find("sessions", { token });
+	const [session] = await dbService.find("sessions", { token });
 	if (!session) {
 		return res.sendStatus(401);
 	}
 
-	const user = await dbService.find("users", { _id: session.userId });
+	const [user] = await dbService.find("users", { _id: session.userID });
 	if (!user) {
 		return res.sendStatus(401);
 	}
