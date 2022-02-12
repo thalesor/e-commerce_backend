@@ -9,7 +9,7 @@ export async function signUp(req, res) {
 		const passwordHash = bcrypt.hashSync(user.password, 10);
 		const userCrtpt = { ...user, password: passwordHash };
 
-		const result = await dbService.insert("users", { userCrtpt });
+		const result = await dbService.insert("users", userCrtpt);
 		res.sendStatus(201);
 	} catch {
 		const response = `Não será possível cadastra usuário devido a um erro no servidor!`;
@@ -40,20 +40,28 @@ export async function signIn(req, res) {
 	}
 }
 
-export async function getUser(req, res) {
-	const user = res.locals.user;
-
-	res.send(user).status(200);
-}
-
 export async function logout(req, res) {
 	const user = res.locals.user;
+	console.log(user);
 
 	try {
-		await db.dbService("sessions", { userID: user._id });
+		await dbService.deleteMany("sessions", { userID: user._id });
 		res.sendStatus(202);
 	} catch {
 		console.log(error);
 		res.sendStatus(400);
+	}
+}
+
+export async function registrarCompra(req, res) {
+	const user = res.locals.user;
+	const compras = { ...req.body, userID: user._id };
+
+	try {
+		await dbService.insert("compras", compras);
+		res.sendStatus(201);
+	} catch (error) {
+		console.log(error);
+		return res.sendStatus(500);
 	}
 }
