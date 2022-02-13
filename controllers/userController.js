@@ -31,8 +31,8 @@ export async function signIn(req, res) {
 			await dbService.insert("sessions", data);
 			const sendData = {
 				token: token,
-				user: user.user
-			}
+				user: user.user,
+			};
 			return res.json(sendData);
 		}
 
@@ -52,18 +52,5 @@ export async function logout(req, res) {
 	} catch {
 		console.log(error);
 		res.sendStatus(400);
-	}
-}
-
-export async function registrarCompra(req, res) {
-	const user = res.locals.user;
-	const compras = { ...req.body, userID: user._id };
-
-	try {
-		await dbService.insert("compras", compras);
-		res.sendStatus(201);
-	} catch (error) {
-		console.log(error);
-		return res.sendStatus(500);
 	}
 }
