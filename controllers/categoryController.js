@@ -61,11 +61,6 @@ async function registrarCategorias()
             return;
         } 
     }
-    else
-    {
-        console.log("Não será necessário cadastrar categorias");
-        return
-    }
 }
 
 export { 

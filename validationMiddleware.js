@@ -12,6 +12,7 @@ const validation = (validateFn) => {
         {
             res.locals.postData = data;
             next();
+            return;
         }
         res.status(422).send(`Erros durante a validação dos dados no servidor:
         ${validation.errors}`);

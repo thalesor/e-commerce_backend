@@ -25,7 +25,6 @@ export async function signIn(req, res) {
 
 		if (user && bcrypt.compareSync(password, user.password)) {
 			const token = uuid();
-			console.log(token);
 
 			const data = { userID: user._id, token };
 			await dbService.insert("sessions", data);
@@ -44,13 +43,11 @@ export async function signIn(req, res) {
 
 export async function logout(req, res) {
 	const user = res.locals.user;
-	console.log(user);
 
 	try {
 		await dbService.deleteMany("sessions", { userID: user._id });
 		res.sendStatus(202);
 	} catch {
-		console.log(error);
 		res.sendStatus(400);
 	}
 }
