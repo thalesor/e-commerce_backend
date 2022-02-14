@@ -1,28 +1,28 @@
 import { dbService } from '../services/db-service.js';
 
+
 async function postBook(req, res)
 {
     const data = res.locals.postData;
     try
     {
-        data.views = 0;
         const result = await dbService.insert("books",
         data
         );
         if(result)
         {
-            res.sendStatus(201);
-            return;
+            return res.sendStatus(201);
         }
-        const response = `
-        Não será possível cadastrar o livro devido a um erro na base de dados!`;
-        res.status(500).send(response);
+        else
+        {
+            const response = `
+            Não será possível cadastrar o livro devido a um erro na base de dados!`;
+            return res.status(500).send(response);
+        }
     }
     catch(err)
     {
-        const response = `
-        Não será possível registrar o livro devido a um erro no servidor!`;
-        res.status(500).send(response);
+        res.status(500).send(err);
     } 
 }
 
@@ -200,7 +200,7 @@ async function registrarLivros()
                     description: `Que pão você quer para o seu café da manhã? Pão francês? Baguete? Um pão rústico, bem cascudo, ou um pãozinho de leite ultramacio? Todas essas receitas estão neste novo livro de Luiz Américo Camargo, com produção de Rita Lobo e sua equipe. E ainda tem broa portuguesa, pão sírio, pão de hambúrguer e de cachorro-quente, focaccia, ciabatta, chocotone... São cerca de 30 tipos diferentes de pão (quase todos com fermento biológico), além de sugestões de recheios, acompanhamentos e reaproveitamentos, num total de 40 receitas. 'Direto ao Pão' é um guia completo para quem quer se iniciar na panificação caseira. Da escolha dos ingredientes ao resfriamento pós-forno, você vai aprender em detalhes todas as etapas para assar o filão perfeito. Luiz Américo Camargo, autor de sucesso com Pão Nosso (também publicado pela parceria Panelinha-Senac), ensina estratégias para controlar o tempo e não ficar preso na hora do preparo. Com planejamento, você dribla a correria e encaixa o pão ― e aquele perfume que sai do forno! ― na sua rotina. E para você ler entre uma sova e outra, o livro ainda traz as crônicas do padeiro, numa prosa deliciosa como as fornadas.
                     `,
                     value: 101.25,
-                    in_stock: 58,
+                    in_stock: 2,
                     views: 0
                 },
             ]
@@ -218,11 +218,6 @@ async function registrarLivros()
             console.log("Erro no servidor ao tentar cadastrar livros");
             return;
         } 
-    }
-    else
-    {
-        console.log("Não será necessário cadastrar livros");
-        return
     }
 }
 

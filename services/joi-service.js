@@ -6,7 +6,7 @@ const {messages} = pkg;
 const bookSchema = Joi.object({
   title: Joi.string().trim().min(5).required().label("Título"),
   category: Joi.string().valid('Terror', 'Mistério', 'Culinária').required().label("Categoria"),
-  imageUrl: Joi.string().uri().trim().required().label("URL da imagem"),
+  imageUrl: Joi.string().trim().required().label("URL da imagem"),
   description: Joi.string().min(15).required().label("Descrição"),
   value: Joi.number().positive().required().label("Valor"),
   in_stock: Joi.number().positive().required().label("Estoque")
