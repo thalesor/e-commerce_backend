@@ -18,7 +18,6 @@ import router from "./routes/index.js";
 const app = express();
 
 app.use(json());
-app.options("*", cors());
 app.use(cors());
 app.use(router);
 
