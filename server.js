@@ -18,7 +18,6 @@ import router from "./routes/index.js";
 const app = express();
 
 app.use(json());
-app.options("*", cors());
 app.use(cors());
 app.use(router);
 
@@ -31,6 +30,6 @@ app.post("/signUp", signUp);
 registrarCategorias();
 registrarLivros();
 
-app.listen(process.env.PORT, () => {
-    console.log("Server running on port " + process.env.PORT);
-});
+app.listen(process.env.PORT || 5000, function(){
+	console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+  });
