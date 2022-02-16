@@ -29,14 +29,16 @@ export async function signIn(req, res) {
 
 			const data = { userID: user._id, token };
 			await dbService.insert("sessions", data);
-
-			return res.send(token);
+			const sendData = {
+				token: token,
+				user: user.user
+			}
+			return res.json(sendData);
 		}
 
-		return res.sendStatus(401);
+		return res.status(401).send("Não há usuário com esse e-mail ou essa senha");
 	} catch (error) {
-		console.log(error);
-		return res.sendStatus(401);
+		return res.status(401).send("Erro no servidor ao tentar se logar");
 	}
 }
 
